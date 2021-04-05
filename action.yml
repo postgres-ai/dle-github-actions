@@ -1,0 +1,14 @@
+name: 'DB migration with DLE'
+description: 'Run DB migrations with the DLE'
+inputs:
+  owner:
+    description: 'The owner of the repository to check'
+    required: true
+outputs:
+  status:
+    description: 'The result of CI checks'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.owner }}
