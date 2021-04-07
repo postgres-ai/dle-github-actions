@@ -4,11 +4,18 @@ inputs:
   owner:
     description: 'The owner of the repository to check'
     required: true
+  repo:
+    description: 'The repo to check'
+    required: true
+  ref:
+    description: 'The input represents a ref parameter, which can be a SHA, branch, or tag'
+    required: true
+  commands:
+    description: 'List of commands to run DB migrations'
+    required: true
 outputs:
   status:
     description: 'The result of CI checks'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.owner }}
