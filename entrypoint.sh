@@ -5,7 +5,7 @@ JSON_DATA=$(jq -n -c \
   --arg repo "$INPUT_REPO" \
   --arg ref "$INPUT_REF" \
   --arg commands "$INPUT_COMMANDS" \
-  '{repo: {owner: $owner, repo: $repo, ref: $ref}, commands: $commands | rtrimstr("\n") | split("\n")}')
+  '{source: {owner: $owner, repo: $repo, ref: $ref}, commands: $commands | rtrimstr("\n") | split("\n")}')
 
 echo $JSON_DATA
 
