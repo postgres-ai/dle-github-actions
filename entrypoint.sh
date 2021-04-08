@@ -9,10 +9,9 @@ JSON_DATA=$(jq -n -c \
 
 echo $JSON_DATA
 
-curl --location --request POST "${CI_ENDPOINT}" \
+response=$(curl -s --location --request POST "${CI_ENDPOINT}" \
 --header "Authorization-Token: ${SECRET_TOKEN}" \
 --header 'Content-Type: application/json' \
---data "${JSON_DATA}"
+--data "${JSON_DATA}")
 
-status="OK"
-echo "::set-output name=status::$status"
+echo "::set-output name=response::$response"
