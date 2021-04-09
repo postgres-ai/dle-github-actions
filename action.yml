@@ -16,6 +16,13 @@ inputs:
   commands:
     description: 'List of commands to run DB migrations'
     required: true
+  dbname:
+    description: 'The database that the workflow is running with'
+    required: false
+    default: ""
+  migration_envs:
+    description: 'List of commands to run DB migrations'
+    required: false
 outputs:
   status:
     description: 'The result of CI checks'
