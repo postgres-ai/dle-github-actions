@@ -24,7 +24,7 @@ inputs:
     description: 'List of commands to run DB migrations'
     required: false
 outputs:
-  status:
+  response:
     description: 'The result of CI checks'
 runs:
   using: 'docker'

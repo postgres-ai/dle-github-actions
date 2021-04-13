@@ -22,3 +22,7 @@ if [[ $response_code -ne 200 ]]; then
   echo "Invalid status code given: ${response_code}"
   exit 1
 fi
+
+response=$(cat response.json)
+
+echo "::set-output name=response::$response"
