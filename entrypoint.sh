@@ -12,9 +12,13 @@ JSON_DATA=$(jq -n -c \
 
 echo $JSON_DATA
 
-response=$(curl -s --location --request POST "${CI_ENDPOINT}" \
+response_code=$(curl --show-error --silent --location --request POST "${CI_ENDPOINT}" --write-out "%{http_code}" \
 --header "Verification-Token: ${SECRET_TOKEN}" \
 --header 'Content-Type: application/json' \
+--output response.json \
 --data "${JSON_DATA}")
 
-echo "::set-output name=response::$response"
+if [[ $response_code -ne 200 ]]; then
+  echo "Invalid status code given: ${response_code}"
+  exit 1
+fi
