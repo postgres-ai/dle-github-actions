@@ -13,6 +13,18 @@ inputs:
     description: 'The input represents a ref parameter, which can be a SHA, branch, or tag'
     required: true
     default: ${{ github.ref }}
+  pull_request:
+    description: 'Link to the pull request'
+    required: false
+    default: ${{ github.event.pull_request.html_url }}
+  compare:
+    description: 'Compare'
+    required: false
+    default: ${{ github.event.compare }}
+  commit_sha:
+    description: 'Commit SHA'
+    required: false
+    default: ${{ github.event.after }}
   commands:
     description: 'List of commands to run DB migrations'
     required: true
