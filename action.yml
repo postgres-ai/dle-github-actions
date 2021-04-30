@@ -18,7 +18,7 @@ inputs:
     required: false
     default: ${{ github.event.pull_request.html_url }}
   compare:
-    description: 'Compare'
+    description: 'The compare link'
     required: false
     default: ${{ github.event.compare }}
   commit_sha:
@@ -35,6 +35,10 @@ inputs:
   migration_envs:
     description: 'List of commands to run DB migrations'
     required: false
+  download_artifacts:
+    description: 'Option to download artifacts'
+    required: false
+    default: "false"
 outputs:
   response:
     description: 'The result of CI checks'
