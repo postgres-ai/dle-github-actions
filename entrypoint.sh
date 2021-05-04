@@ -29,15 +29,12 @@ response_code=$(curl --show-error --silent --location --request POST "${CI_ENDPO
 --output response.json \
 --data "${JSON_DATA}")
 
+jq . response.json
+
 if [[ $response_code -ne 200 ]]; then
   echo "Invalid status code given: ${response_code}"
   exit 1
 fi
-
-response=$(cat response.json)
-
-echo $response
-echo "::set-output name=response::$response"
 
 status=$(jq -r '.session.result.status' response.json)
 
@@ -45,6 +42,8 @@ if [[ $status != "passed" ]]; then
   echo "Invalid status given: ${status}"
   exit 1
 fi
+
+echo "::set-output name=response::$(cat response.json)"
 
 clone_id=$(jq -r '.clone_id' response.json)
 session_id=$(jq -r '.session.session_id' response.json)
