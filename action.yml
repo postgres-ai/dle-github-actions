@@ -39,6 +39,20 @@ inputs:
     description: 'Option to download artifacts'
     required: false
     default: "false"
+
+  observation_interval:
+    description: 'Observation interval'
+    required: false
+    default: "10"
+  max_lock_duration:
+    description: 'Max lock duration'
+    required: false
+    default: "10"
+  max_duration:
+    description: 'Max duration'
+    required: false
+    default: "3600"
+
 outputs:
   response:
     description: 'The result of CI checks'
