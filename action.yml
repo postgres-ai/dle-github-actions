@@ -25,6 +25,10 @@ inputs:
     description: 'Commit SHA'
     required: false
     default: ${{ github.event.after }}
+  author_name:
+    description: 'Author name'
+    required: false
+    default: ${{ github.event.head_commit.author.name }}
   commands:
     description: 'List of commands to run DB migrations'
     required: true

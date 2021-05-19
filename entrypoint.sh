@@ -12,17 +12,21 @@ JSON_DATA=$(jq -n -c \
   --arg ref "$INPUT_REF" \
   --arg commands "$INPUT_COMMANDS" \
   --arg db_name "$INPUT_DBNAME" \
-  --arg actor "$GITHUB_ACTOR" \
+  --arg username "$GITHUB_ACTOR" \
+  --arg username_full "$INPUT_AUTHOR_NAME" \
+  --arg username_link "${GITHUB_SERVER_URL}/$GITHUB_ACTOR" \
   --arg branch "${GITHUB_HEAD_REF:-${GITHUB_REF##*/}}" \
-  --arg commit_sha "${INPUT_COMMIT_SHA}" \
-  --arg commit "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${INPUT_COMMIT_SHA}" \
-  --arg request_link "${INPUT_PULL_REQUEST:-$INPUT_COMPARE}" \
+  --arg branch_link "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/tree/${GITHUB_HEAD_REF:-${GITHUB_REF##*/}}" \
+  --arg commit "${INPUT_COMMIT_SHA}" \
+  --arg commit_link "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${INPUT_COMMIT_SHA}" \
+  --arg request_link "${INPUT_PULL_REQUEST}" \
+  --arg diff_link "${INPUT_COMPARE}" \
   --arg migration_envs "$INPUT_MIGRATION_ENVS" \
   --arg observation_interval "$INPUT_OBSERVATION_INTERVAL" \
   --arg max_lock_duration "$INPUT_MAX_LOCK_DURATION" \
   --arg max_duration "$INPUT_MAX_DURATION" \
-  --argjson keep_clone $KEEP_CLONE \
-  '{source: {owner: $owner, repo: $repo, ref: $ref, branch: $branch, commit_sha: $commit_sha, commit: $commit, request_link: $request_link}, actor: $actor, db_name: $db_name, commands: $commands | rtrimstr("\n") | split("\n"), migration_envs: $migration_envs | rtrimstr("\n") | split("\n"), observation_config: { observation_interval: $observation_interval|tonumber, max_lock_duration: $max_lock_duration|tonumber, max_duration: $max_duration|tonumber}, keep_clone: $keep_clone}')
+  --argjson keep_clone "$KEEP_CLONE" \
+  '{source: {owner: $owner, repo: $repo, ref: $ref, branch: $branch, branch_link: $branch_link, commit: $commit, commit_link: $commit_link, request_link: $request_link, diff_link: $diff_link}, username: $username, username_full: $username_full, username_link: $username_link, db_name: $db_name, commands: $commands | rtrimstr("\n") | split("\n"), migration_envs: $migration_envs | rtrimstr("\n") | split("\n"), observation_config: { observation_interval: $observation_interval|tonumber, max_lock_duration: $max_lock_duration|tonumber, max_duration: $max_duration|tonumber}, keep_clone: $keep_clone}')
 
 echo $JSON_DATA
 
