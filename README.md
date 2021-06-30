@@ -1,4 +1,4 @@
-# DB Migration checker action
+# DB Migrations checking action
 
 A GitHub action to run DB migrations with Database Lab Engine (DLE) 
 
