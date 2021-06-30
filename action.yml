@@ -1,4 +1,4 @@
-name: 'DB migration with DLE'
+name: 'DB migrations checker with DLE'
 description: 'Run DB migrations with the DLE'
 inputs:
   owner:
