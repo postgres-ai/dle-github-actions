@@ -1,5 +1,5 @@
-name: 'DB migrations checker with DLE'
-description: 'Run DB migrations with the DLE'
+name: 'Database Lab migration checker'
+description: 'Check database migrations with the Database Lab Engine'
 inputs:
   owner:
     description: 'The owner of the repository to check'
@@ -59,7 +59,7 @@ inputs:
 
 outputs:
   response:
-    description: 'The result of CI checks'
+    description: 'The result of migration checks'
 runs:
   using: 'docker'
   image: 'Dockerfile'
