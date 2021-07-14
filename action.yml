@@ -37,7 +37,7 @@ inputs:
     required: false
     default: ""
   migration_envs:
-    description: 'List of commands to run DB migrations'
+    description: 'List of environment variables that will be set during migrations running'
     required: false
   download_artifacts:
     description: 'Option to download artifacts'
