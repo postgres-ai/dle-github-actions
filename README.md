@@ -10,7 +10,7 @@ This GitHub action tests database schema changes (DB migrations) automatically u
 [**Database Lab DB Migration Checker**](https://postgres.ai/docs/db-migration-checker) is a DLE's component that enables integration with CI/CD tools to automatically test migrations in CI/CD pipelines.
 
 ## Key features
-- **Automated:** DB migrations testing in CI/CD pipelines
+- **Automated:** DB migration testing in CI/CD pipelines
 - **Realistic:** test results are realistic because real or close-to-real (the same size but no personal data) databases are used, thin-cloned in seconds and destroyed after testing is done
 - **Fast and inexpensive:** a single machine with single disk can operate dozens of independent thin clones
 - **Well-tested DB changes to avoid deployment failures:** DB Migration Checker automatically detects (and prevents!) long-lasting dangerous locks that could put your production systems down
