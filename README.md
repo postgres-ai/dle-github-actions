@@ -1,24 +1,26 @@
-# DB Migrations checking action
+# Database Lab (Postgres.ai) to test DB migrations in CI
 
-A GitHub action to run DB migrations with Database Lab Engine (DLE) 
+This GitHub action tests DB migrations database schema changes (database migrations) automatically using thin clones of large databases provided by Database Lab Engine (DLE)
 
 ## Overview
-**Database Lab DB migration checker** is a tool to automatically validate migrations in the CI pipeline.
+**Database Lab DB migration checker** is a tool to automatically test migrations in CI/CD pipelines.
 
-## Database Lab DB migration checker's benefits:
-- Check migrations as a part of a standard pipeline
-- Protect DLE from data stealing - run migrations in a protected environment
-- Protect logs and artifacts from being revealed
+## Key features
+- Check migrations as a part of a standard CI/CD pipeline
+- Automatically detect (and prevent!) long-lasting dangerous locks that could put your production systems down
+- Run all tests in secure environment: data cannot be copied outside the secure container
+- Collect useful artifacts (such as `pg_stat_***` system views) and use them to empower your DB changes review process
 
 ## How to use
-To use the action, create a yml file in the `.github/workflows/` directory.
+To use the action, create a YAML file in the `.github/workflows/` directory.
 
-Copy and paste the installation snippet from the [Marketplace page](https://github.com/marketplace/actions/database-lab-migration-checker) into your .yml file.
+Copy and paste the installation snippet from the [Marketplace page](https://github.com/marketplace/actions/database-lab-migration-checker) into your `.yml` file.
 
-Check out the [Database Lab DB migrations checker documentation](https://postgres.ai/docs/db-migration-checker) to learn how it works and see available configuration options
+Check out the docs to learn more:
+- [DB Migration Checker. How to test DB changes in CI/CD automatically](https://postgres.ai/docs/db-migration-checker)
+- [DB Migration Checker configuration reference](https://postgres.ai/docs/reference-guides/db-migration-checker-configuration-reference)
 
-For example,
-
+YAML file example:
 ```yaml
 on: [ push ]
 
@@ -60,5 +62,4 @@ jobs:
       # Show migration summary
       - name: Get the response status
         run: echo "${{ steps.db-migrations.outputs.response }}"
-
 ```
