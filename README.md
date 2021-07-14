@@ -1,4 +1,4 @@
-# Database Lab (Postgres.ai) to test DB migrations in CI
+# Automated testing of DB changes in CI/CD pipelines using thin clones provided by Database Lab (Postgres.ai)
 
 This GitHub action tests DB migrations database schema changes (database migrations) automatically using thin clones of large databases provided by Database Lab Engine (DLE)
 
