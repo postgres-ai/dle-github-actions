@@ -8,7 +8,7 @@ This GitHub action tests DB migrations database schema changes (database migrati
 ## Key features
 - Check migrations as a part of a standard CI/CD pipeline
 - Automatically detect (and prevent!) long-lasting dangerous locks that could put your production systems down
-- Run all tests in secure environment: data cannot be copied to outside of a secured container
+- Run all tests in secure environment: data cannot be copied outside the secure container
 - Collect useful artifacts (such as `pg_stat_***` system views) and use them to empower your DB changes review process
 
 ## How to use
