@@ -9,7 +9,7 @@ This GitHub action tests DB migrations database schema changes (database migrati
 - Check migrations as a part of a standard CI/CD pipeline
 - Automatically detect (and prevent!) long-lasting dangerous locks that could put your production systems down
 - Run all tests in secure environment: data cannot be copied to outside of a secured container
-- Collect useful artifacts (such as `pg_stat_***` system views) and use them to enpower your DB changes review process
+- Collect useful artifacts (such as `pg_stat_***` system views) and use them to empower your DB changes review process
 
 ## How to use
 To use the action, create a YAML file in the `.github/workflows/` directory.
