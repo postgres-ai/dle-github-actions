@@ -1,4 +1,7 @@
 name: 'Database Lab: realistic DB testing in CI'
+branding:
+  icon: 'database'  
+  color: 'orange'
 description: 'Check database migrations with the Database Lab Engine'
 inputs:
   owner:
