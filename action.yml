@@ -1,4 +1,4 @@
-name: 'Database Lab migration checker'
+name: 'Database Lab: test DB changes in CI'
 description: 'Check database migrations with the Database Lab Engine'
 inputs:
   owner:
