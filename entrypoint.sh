@@ -39,14 +39,14 @@ response_code=$(curl --show-error --silent --location --request POST "${DLMC_CI_
 jq . response.json
 
 if [[ $response_code -ne 200 ]]; then
-  echo "Invalid status code given: ${response_code}"
+  echo "Migration status code: ${response_code}"
   exit 1
 fi
 
 status=$(jq -r '.session.result.status' response.json)
 
 if [[ $status != "passed" ]]; then
-  echo "Invalid status given: ${status}"
+  echo "Migration status: ${status}"
   exit 1
 fi
 
