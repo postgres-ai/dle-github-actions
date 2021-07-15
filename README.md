@@ -41,7 +41,7 @@ jobs:
 
       # Run database migrations with the public action
       - name: Check database migrations with DLE
-        uses: postgres-ai/migration-ci-action@v0.1.1
+        uses: postgres-ai/dle-github-action@v0.1.1
         id: db-migrations
         with:
           dbname: test
