@@ -68,8 +68,11 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - name: DB migration with DLE
-      uses: agneum/migration-action@v0.0.13
+#    - name: DB migration with DLE
+#      uses: agneum/migration-action@v0.0.13
+
+    - run: echo 'DLE checks'
+      shell: bash
 
     - name: Post comment to PR
       if: ${{ github.event_name == 'pull_request' }}
