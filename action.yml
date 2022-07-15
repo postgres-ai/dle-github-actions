@@ -75,10 +75,9 @@ runs:
       shell: bash
 
     - run: |
+        sudo apt install jq
         echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
-        echo '```json' >> $GITHUB_ENV
-        cat response.json >> $GITHUB_ENV
-        echo '```' >> $GITHUB_ENV
+        cat response.json | jq >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
       shell: bash
 
@@ -90,8 +89,10 @@ runs:
       uses: peter-evans/create-or-update-comment@v2
       env:
         COMMENT: |
-          ### Summary        
-            ${{ env.JSON_RESPONSE }}
+          ### Summary 
+          ```json
+          ${{ env.JSON_RESPONSE }}
+          ```
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body: ${{ env.COMMENT }}
