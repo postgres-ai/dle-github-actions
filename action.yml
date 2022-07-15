@@ -74,7 +74,15 @@ runs:
     - run: cat response.json || true
       shell: bash
 
-    - run: ls artifacts || true
+    - run: |
+        echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
+        echo '```json' >> $GITHUB_ENV
+        cat response.json || true >> $GITHUB_ENV
+        echo '```' >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
+      shell: bash
+
+    - run: ls /artifacts || true
       shell: bash
 
     - name: Post comment to PR
@@ -82,20 +90,8 @@ runs:
       uses: peter-evans/create-or-update-comment@v2
       env:
         COMMENT: |
-          This is a multi-line test comment
-          - With GitHub **Markdown** :sparkles:
-          - Created by [postgres-ai/migration-ci-action][1]
-          
-          [1]: https://github.com/marketplace/actions/database-lab-realistic-db-testing-in-ci
-          
           ### Summary        
-            | Status | Passed  :heavy_check_mark: |
-            |:---:| ---  |
-            | Session | #872  |
-            | Project | - |
-            | DLE version | v3.1.1-15-g1db723b-20220616-0755 |
-            | Data state at | 2022-06-12 00:00:06 +0000 UTC |
-            | Duration    | 44s|
+            ${{ env.JSON_RESPONSE }}
       with:
         issue-number: ${{ github.event.pull_request.number }}
-        body: ${{ env.COMMENT }}
+        body: ${{ env.JSON_RESPONSE }}
