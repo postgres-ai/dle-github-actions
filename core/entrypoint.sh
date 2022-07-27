@@ -1,5 +1,7 @@
 #!/bin/sh -l
 
+echo $INPUT_OWNER
+
 KEEP_CLONE=false
 
 if [[ "${INPUT_DOWNLOAD_ARTIFACTS}" == "true" ]]; then
