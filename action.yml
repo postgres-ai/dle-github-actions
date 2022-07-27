@@ -69,7 +69,7 @@ runs:
   using: 'composite'
   steps:
     - name: DB migration with DLE
-      uses: agneum/migration-action/core@composite-action
+      uses: ${{ github.action_repository }}core@${{ github.action_ref }}
 
     - run: cat response.json || true
       shell: bash
