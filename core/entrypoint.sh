@@ -38,6 +38,7 @@ response_code=$(curl -k --show-error --silent --location --request POST "${DLMC_
 
 jq . response.json
 
+# TODO: remove after providing summary.md
 export JSON_RESPONSE=$(cat response.json | jq)
 echo "$(cat<<-EOL
 ### Summary
