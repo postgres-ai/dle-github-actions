@@ -38,6 +38,16 @@ response_code=$(curl -k --show-error --silent --location --request POST "${DLMC_
 
 jq . response.json
 
+export JSON_RESPONSE=$(cat response.json | jq)
+echo "$(cat<<-EOL
+### Summary
+\`\`\`json
+${JSON_RESPONSE}
+\`\`\`
+EOL
+)" > summary.md
+
+
 if [[ $response_code -ne 200 ]]; then
   echo "Migration status code: ${response_code}"
   exit 1

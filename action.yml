@@ -74,8 +74,8 @@ runs:
       shell: bash
 
     - run: |
-        echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
-        cat response.json | jq >> $GITHUB_ENV
+        echo 'SUMMARY<<EOF' >> $GITHUB_ENV
+        cat summary.md >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
       shell: bash
 
@@ -85,12 +85,6 @@ runs:
     - name: Post comment to PR
       if: ${{ github.event_name == 'pull_request' }}
       uses: peter-evans/create-or-update-comment@v2
-      env:
-        COMMENT: |
-          ### Summary 
-          ```json
-          ${{ env.JSON_RESPONSE }}
-          ```
       with:
         issue-number: ${{ github.event.pull_request.number }}
-        body: ${{ env.COMMENT }}
+        body: ${{ env.SUMMARY }}
