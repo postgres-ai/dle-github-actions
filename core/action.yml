@@ -62,36 +62,7 @@ inputs:
 
 outputs:
   response:
-    value: Done
-    description: 'The result of migration checks'
-
+    description: 'The result of CI checks'
 runs:
-  using: 'composite'
-  steps:
-    - name: DB migration with DLE
-      uses: ./core
-
-    - run: cat response.json || true
-      shell: bash
-
-    - run: |
-        echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
-        cat response.json | jq >> $GITHUB_ENV
-        echo 'EOF' >> $GITHUB_ENV
-      shell: bash
-
-    - run: ls /artifacts || true
-      shell: bash
-
-    - name: Post comment to PR
-      if: ${{ github.event_name == 'pull_request' }}
-      uses: peter-evans/create-or-update-comment@v2
-      env:
-        COMMENT: |
-          ### Summary 
-          ```json
-          ${{ env.JSON_RESPONSE }}
-          ```
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        body: ${{ env.COMMENT }}
+  using: 'docker'
+  image: 'Dockerfile'
