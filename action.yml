@@ -46,7 +46,6 @@ inputs:
     description: 'Option to download artifacts'
     required: false
     default: "false"
-
   observation_interval:
     description: 'Observation interval'
     required: false
@@ -71,6 +70,61 @@ runs:
     - name: DB migration with DLE
       run: ${{ github.action_path }}/core/entrypoint.sh
       shell: sh
+      with:
+        owner:
+          description: 'The owner of the repository to check'
+          required: true
+          default: ${{ github.repository_owner }}
+        repo:
+          description: 'The repo to check'
+          required: true
+          default: ${{ github.event.repository.name }}
+        ref:
+          description: 'The input represents a ref parameter, which can be a SHA, branch, or tag'
+          required: true
+          default: ${{ github.ref }}
+        pull_request:
+          description: 'Link to the pull request'
+          required: false
+          default: ${{ github.event.pull_request.html_url }}
+        compare:
+          description: 'The compare link'
+          required: false
+          default: ${{ github.event.compare }}
+        commit_sha:
+          description: 'Commit SHA'
+          required: false
+          default: ${{ github.event.after }}
+        author_name:
+          description: 'Author name'
+          required: false
+          default: ${{ github.event.head_commit.author.name }}
+        commands:
+          description: 'List of commands to run DB migrations'
+          required: true
+        dbname:
+          description: 'The database that the workflow is running with'
+          required: false
+          default: ""
+        migration_envs:
+          description: 'List of environment variables that will be set during migrations running'
+          required: false
+        download_artifacts:
+          description: 'Option to download artifacts'
+          required: false
+          default: "false"
+        observation_interval:
+          description: 'Observation interval'
+          required: false
+          default: "10"
+        max_lock_duration:
+          description: 'Max lock duration'
+          required: false
+          default: "10"
+        max_duration:
+          description: 'Max duration'
+          required: false
+          default: "3600"
 
     - run: cat response.json || true
       shell: bash
