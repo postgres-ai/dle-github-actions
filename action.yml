@@ -68,8 +68,12 @@ outputs:
 runs:
   using: 'composite'
   steps:
+    - run: sudo apt install -y curl jq || true
+      shell: bash
+
     - name: DB migration with DLE
-      uses: ${{ github.action_repository }}core@${{ github.action_ref }}
+      run: ${{ github.action_path }}/core/entrypoint.sh
+      shell: bash
 
     - run: cat response.json || true
       shell: bash
