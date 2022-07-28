@@ -3,6 +3,34 @@ branding:
   icon: 'database'  
   color: 'orange'
 description: 'Check database migrations with the Database Lab Engine'
+inputs:
+  commands:
+    description: 'List of commands to run DB migrations'
+    required: true
+  dbname:
+    description: 'The database that the workflow is running with'
+    required: false
+    default: ""
+  migration_envs:
+    description: 'List of environment variables that will be set during migrations running'
+    required: false
+  download_artifacts:
+    description: 'Option to download artifacts'
+    required: false
+    default: "false"
+
+  observation_interval:
+    description: 'Observation interval'
+    required: false
+    default: "10"
+  max_lock_duration:
+    description: 'Max lock duration'
+    required: false
+    default: "10"
+  max_duration:
+    description: 'Max duration'
+    required: false
+    default: "3600"
 
 outputs:
   response:
@@ -13,7 +41,10 @@ runs:
   using: 'composite'
   steps:
     - name: DB migration with DLE
-      uses: postgres-ai/dle-github-actions/core@composite-action
+      uses: agneum/migration-action/core@composite-action
+      with:
+        commands: ${{ inputs.commands }}
+        dbname: ${{ github.inputs.dbname }}
 
     - run: |
         echo 'SUMMARY<<EOF' >> $GITHUB_ENV

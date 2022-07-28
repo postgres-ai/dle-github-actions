@@ -32,33 +32,7 @@ inputs:
     description: 'Author name'
     required: false
     default: ${{ github.event.head_commit.author.name }}
-  commands:
-    description: 'List of commands to run DB migrations'
-    required: true
-  dbname:
-    description: 'The database that the workflow is running with'
-    required: false
-    default: ""
-  migration_envs:
-    description: 'List of environment variables that will be set during migrations running'
-    required: false
-  download_artifacts:
-    description: 'Option to download artifacts'
-    required: false
-    default: "false"
 
-  observation_interval:
-    description: 'Observation interval'
-    required: false
-    default: "10"
-  max_lock_duration:
-    description: 'Max lock duration'
-    required: false
-    default: "10"
-  max_duration:
-    description: 'Max duration'
-    required: false
-    default: "3600"
 
 outputs:
   response:
