@@ -4,34 +4,6 @@ branding:
   color: 'orange'
 description: 'Check database migrations with the Database Lab Engine'
 inputs:
-  owner:
-    description: 'The owner of the repository to check'
-    required: true
-    default: ${{ github.repository_owner }}
-  repo:
-    description: 'The repo to check'
-    required: true
-    default: ${{ github.event.repository.name }}
-  ref:
-    description: 'The input represents a ref parameter, which can be a SHA, branch, or tag'
-    required: true
-    default: ${{ github.ref }}
-  pull_request:
-    description: 'Link to the pull request'
-    required: false
-    default: ${{ github.event.pull_request.html_url }}
-  compare:
-    description: 'The compare link'
-    required: false
-    default: ${{ github.event.compare }}
-  commit_sha:
-    description: 'Commit SHA'
-    required: false
-    default: ${{ github.event.after }}
-  author_name:
-    description: 'Author name'
-    required: false
-    default: ${{ github.event.head_commit.author.name }}
   commands:
     description: 'List of commands to run DB migrations'
     required: true
@@ -62,7 +34,32 @@ inputs:
 
 outputs:
   response:
+    value: Done
     description: 'The result of migration checks'
+
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'composite'
+  steps:
+    - name: DB migration with DLE
+      uses: agneum/migration-action/core@composite-action
+      with:
+        commands: ${{ inputs.commands }}
+        dbname: ${{ inputs.dbname }}
+        migration_envs: ${{ inputs.migration_envs }}
+        download_artifacts: ${{ inputs.download_artifacts }}
+        observation_interval: ${{ inputs.observation_interval }}
+        max_lock_duration: ${{ inputs.max_lock_duration }}
+        max_duration: ${{ inputs.max_duration }}
+
+    - run: |
+        echo 'SUMMARY<<EOF' >> $GITHUB_ENV
+        cat summary.md >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
+      shell: bash
+
+    - name: Post comment to PR
+      if: ${{ github.event_name == 'pull_request' }}
+      uses: peter-evans/create-or-update-comment@v2
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: ${{ env.SUMMARY }}
