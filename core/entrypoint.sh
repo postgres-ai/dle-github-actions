@@ -30,7 +30,7 @@ JSON_DATA=$(jq -n -c \
 
 echo $JSON_DATA
 
-response_code=$(curl -k --show-error --silent --location --request POST "${DLMC_CI_ENDPOINT}/migration/run" --write-out "%{http_code}" \
+response_code=$(curl --show-error --silent --location --request POST "${DLMC_CI_ENDPOINT}/migration/run" --write-out "%{http_code}" \
 --header "Verification-Token: ${DLMC_VERIFICATION_TOKEN}" \
 --header 'Content-Type: application/json' \
 --output response.json \
@@ -56,7 +56,7 @@ fi
 mkdir artifacts
 
 download_artifacts() {
-    artifact_code=$(curl -k --show-error --silent "${DLMC_CI_ENDPOINT}/artifact/download?artifact_type=$1&session_id=$2&clone_id=$3" --write-out "%{http_code}" \
+    artifact_code=$(curl --show-error --silent "${DLMC_CI_ENDPOINT}/artifact/download?artifact_type=$1&session_id=$2&clone_id=$3" --write-out "%{http_code}" \
          --header "Verification-Token: ${DLMC_VERIFICATION_TOKEN}" \
          --header 'Content-Type: application/json' \
          --output artifacts/$1)
@@ -77,7 +77,7 @@ done
 download_artifacts 'report.md' $session_id $clone_id
 
 # Stop the running clone
-response_code=$(curl -k --show-error --silent "${DLMC_CI_ENDPOINT}/artifact/stop?clone_id=${clone_id}" --write-out "%{http_code}" \
+response_code=$(curl --show-error --silent "${DLMC_CI_ENDPOINT}/artifact/stop?clone_id=${clone_id}" --write-out "%{http_code}" \
      --header "Verification-Token: ${DLMC_VERIFICATION_TOKEN}" \
      --header 'Content-Type: application/json')
 

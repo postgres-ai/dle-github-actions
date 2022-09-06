@@ -5,23 +5,23 @@ branding:
 description: 'Check database migrations with the Database Lab Engine'
 inputs:
   owner:
-    description: 'The owner of the repository to check'
+    description: 'Repository owner'
     required: true
     default: ${{ github.repository_owner }}
   repo:
-    description: 'The repo to check'
+    description: 'Repository'
     required: true
     default: ${{ github.event.repository.name }}
   ref:
-    description: 'The input represents a ref parameter, which can be a SHA, branch, or tag'
+    description: 'Ref (SHA, branch, or tag) that needs to be tested'
     required: true
     default: ${{ github.ref }}
   pull_request:
-    description: 'Link to the pull request'
+    description: 'GitHub PR (URL)'
     required: false
     default: ${{ github.event.pull_request.html_url }}
   compare:
-    description: 'The compare link'
+    description: 'GitHub PR comparison URL'
     required: false
     default: ${{ github.event.compare }}
   commit_sha:
@@ -37,34 +37,34 @@ inputs:
     description: 'List of commands to run DB migrations'
     required: true
   dbname:
-    description: 'The database that the workflow is running with'
+    description: 'Database name'
     required: false
     default: ""
   migration_envs:
-    description: 'List of environment variables that will be set during migrations running'
+    description: 'List of environment variables that will be set before testing'
     required: false
   download_artifacts:
-    description: 'Option to download artifacts'
+    description: 'Store artifacts and allow downloading them'
     required: false
     default: "false"
 
   observation_interval:
-    description: 'Observation interval'
+    description: 'Observation interval, seconds (default: 10)'
     required: false
     default: "10"
   max_lock_duration:
-    description: 'Max lock duration'
+    description: 'Exclusive lock duration threshold, seconds (default: 10)'
     required: false
     default: "10"
   max_duration:
-    description: 'Max duration'
+    description: 'DB migration duration threshold, seconds (default: 3600)'
     required: false
     default: "3600"
 
 
 outputs:
   response:
-    description: 'The result of CI checks'
+    description: 'DB migration testing results'
 runs:
   using: 'docker'
   image: 'Dockerfile'

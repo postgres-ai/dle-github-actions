@@ -2,7 +2,7 @@ name: 'Database Lab: realistic DB testing in CI'
 branding:
   icon: 'database'  
   color: 'orange'
-description: 'Check database migrations with the Database Lab Engine'
+description: 'Test DB migrations using DB branches provided by Database Lab Engine (DLE)'
 inputs:
   commands:
     description: 'List of commands to run DB migrations'
@@ -41,7 +41,7 @@ runs:
   using: 'composite'
   steps:
     - name: DB migration with DLE
-      uses: agneum/migration-action/core@composite-action
+      uses: postgres-ai/dle-github-actions/core@composite-action
       with:
         commands: ${{ inputs.commands }}
         dbname: ${{ inputs.dbname }}
