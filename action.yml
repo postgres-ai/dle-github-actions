@@ -53,7 +53,7 @@ runs:
 
     - run: |
         echo 'SUMMARY<<EOF' >> $GITHUB_ENV
-        cat summary.md >> $GITHUB_ENV
+        cat artifacts/report.md >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
       shell: bash
 
