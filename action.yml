@@ -56,9 +56,10 @@ runs:
         cat artifacts/report.md >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
       shell: bash
+      if: ${{ always() }}
 
     - name: Post comment to PR
-      if: ${{ github.event_name == 'pull_request' }}
+      if: ${{ always() && github.event_name == 'pull_request' }}
       uses: peter-evans/create-or-update-comment@v2
       with:
         issue-number: ${{ github.event.pull_request.number }}
