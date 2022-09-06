@@ -38,17 +38,6 @@ response_code=$(curl -k --show-error --silent --location --request POST "${DLMC_
 
 jq . response.json
 
-# TODO: remove after providing summary.md
-export JSON_RESPONSE=$(cat response.json | jq)
-echo "$(cat<<-EOL
-### Summary
-\`\`\`json
-${JSON_RESPONSE}
-\`\`\`
-EOL
-)" > summary.md
-
-
 if [[ $response_code -ne 200 ]]; then
   echo "Migration status code: ${response_code}"
   exit 1
@@ -86,11 +75,6 @@ done
 
 # Download report
 download_artifacts 'report.md' $session_id $clone_id
-
-pwd
-ls
-
-cat artifacts/report.md
 
 # Stop the running clone
 response_code=$(curl -k --show-error --silent "${DLMC_CI_ENDPOINT}/artifact/stop?clone_id=${clone_id}" --write-out "%{http_code}" \
