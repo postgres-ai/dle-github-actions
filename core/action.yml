@@ -2,7 +2,7 @@ name: 'Database Lab: realistic DB testing in CI'
 branding:
   icon: 'database'  
   color: 'orange'
-description: 'Check database migrations with the Database Lab Engine'
+description: 'Test DB migrations using DB branches provided by Database Lab Engine (DLE)'
 inputs:
   owner:
     description: 'Repository owner'
