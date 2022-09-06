@@ -87,13 +87,18 @@ done
 # Download report
 download_artifacts 'report.md' $session_id $clone_id
 
+pwd
+ls
+
+cat artifacts/report.md
+
 # Stop the running clone
-response_code=$(curl --show-error --silent "${DLMC_CI_ENDPOINT}/artifact/stop?clone_id=${clone_id}" --write-out "%{http_code}" \
+response_code=$(curl -k --show-error --silent "${DLMC_CI_ENDPOINT}/artifact/stop?clone_id=${clone_id}" --write-out "%{http_code}" \
      --header "Verification-Token: ${DLMC_VERIFICATION_TOKEN}" \
      --header 'Content-Type: application/json')
 
 if [[ $response_code -ne 200 ]]; then
-  echo "Invalid status code given on destroy clone: ${artifact_code}"
+  echo "Invalid status code given on destroy clone: ${response_code}"
 fi
 
 status=$(jq -r '.session.result.status' response.json)

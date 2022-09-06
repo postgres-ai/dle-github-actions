@@ -52,8 +52,10 @@ runs:
         max_duration: ${{ inputs.max_duration }}
 
     - run: |
+        pwd
+        ls
         echo 'SUMMARY<<EOF' >> $GITHUB_ENV
-        cat artifacts/report.md >> $GITHUB_ENV
+        cat "artifacts/report.md" >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
       shell: bash
       if: ${{ always() }}
