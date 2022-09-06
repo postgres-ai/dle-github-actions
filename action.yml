@@ -55,9 +55,10 @@ runs:
         pwd
         ls
         echo 'SUMMARY<<EOF' >> $GITHUB_ENV
-        cat "artifacts/report.md" >> $GITHUB_ENV
+        cat report.md >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
       shell: bash
+      working-directory: artifacts
       if: ${{ always() }}
 
     - name: Post comment to PR
