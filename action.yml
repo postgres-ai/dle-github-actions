@@ -41,7 +41,7 @@ runs:
   using: 'composite'
   steps:
     - name: DB migration with DLE
-      uses: postgres-ai/dle-github-actions/core@composite-action
+      uses: postgres-ai/dle-github-actions/core@master
       with:
         commands: ${{ inputs.commands }}
         dbname: ${{ inputs.dbname }}
