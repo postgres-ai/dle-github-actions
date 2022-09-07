@@ -43,13 +43,6 @@ if [[ $response_code -ne 200 ]]; then
   exit 1
 fi
 
-status=$(jq -r '.session.result.status' response.json)
-
-if [[ $status != "passed" ]]; then
-  echo "Migration status: ${status}"
-  exit 1
-fi
-
 echo "::set-output name=response::$(cat response.json)"
 
 clone_id=$(jq -r '.clone_id' response.json)
@@ -80,11 +73,21 @@ cat response.json | jq -c -r '.session.artifacts[]' | while read artifact; do
     download_artifacts $artifact $session_id $clone_id
 done
 
+# Download report
+download_artifacts 'report.md' $session_id $clone_id
+
 # Stop the running clone
 response_code=$(curl --show-error --silent "${DLMC_CI_ENDPOINT}/artifact/stop?clone_id=${clone_id}" --write-out "%{http_code}" \
      --header "Verification-Token: ${DLMC_VERIFICATION_TOKEN}" \
      --header 'Content-Type: application/json')
 
 if [[ $response_code -ne 200 ]]; then
-  echo "Invalid status code given on destroy clone: ${artifact_code}"
+  echo "Invalid status code given on destroy clone: ${response_code}"
+fi
+
+status=$(jq -r '.session.result.status' response.json)
+
+if [[ $status != "passed" ]]; then
+  echo "Migration status: ${status}"
+  exit 1
 fi
