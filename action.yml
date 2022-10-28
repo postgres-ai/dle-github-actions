@@ -51,20 +51,9 @@ runs:
         max_lock_duration: ${{ inputs.max_lock_duration }}
         max_duration: ${{ inputs.max_duration }}
 
-    - id: comment-body
-      run: |
-        body="$(cat report.md)"
-        body="${body//'%'/'%25'}"
-        body="${body//$'\n'/'%0A'}"
-        body="${body//$'\r'/'%0D'}"
-        echo "::set-output name=body::$body"
-      shell: bash
-      working-directory: artifacts
-      if: ${{ always() }}
-
     - name: Post comment to PR
       if: ${{ always() && github.event_name == 'pull_request' }}
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v2.1.0
       with:
         issue-number: ${{ github.event.pull_request.number }}
-        body: ${{ steps.comment-body.outputs.body }}
+        body-file: 'artifacts/report.md'
