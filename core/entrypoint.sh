@@ -43,8 +43,6 @@ if [[ $response_code -ne 200 ]]; then
   exit 1
 fi
 
-echo "::set-output name=response::$(cat response.json)"
-
 clone_id=$(jq -r '.clone_id' response.json)
 session_id=$(jq -r '.session.session_id' response.json)
 
